@@ -63,8 +63,8 @@
         }
 
         private Entry<K,V> root = null;
-        private transient int size = 0;
-        private transient int modCount = 0;
+        private int size = 0;
+        private int modCount = 0;
 
         public MyTreeMap() {
         }
