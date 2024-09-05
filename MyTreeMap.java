@@ -64,7 +64,6 @@
 
         private Entry<K,V> root = null;
         private int size = 0;
-        private int modCount = 0;
 
         public MyTreeMap() {
         }
@@ -159,7 +158,6 @@
                 root = new Entry<K,V>(key, value, null);
                 size = 1;
                 root.setSize(1);
-                modCount++;
                 return null;
             }
             int cmp;
@@ -186,7 +184,6 @@
             e.setSize(1);
             fixAfterInsertion(e);
             size++;
-            modCount++;
             return null;
         }
 
@@ -408,7 +405,6 @@
          * Delete node p, and then rebalance the tree.
          */
         private void deleteEntry(Entry<K,V> p) {
-            modCount++;
             size--;
 
             // If strictly internal, copy successor's element to p and then make p
