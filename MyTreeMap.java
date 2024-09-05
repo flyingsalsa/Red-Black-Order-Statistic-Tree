@@ -1,6 +1,67 @@
 
-    class MyTreeMap<K,V>
-    {
+    class MyTreeMap<K,V> {
+
+        private static final boolean RED   = false;
+        private static final boolean BLACK = true;
+
+        final class Entry<K,V>  {
+            K key;
+            V value;
+            Entry<K,V> left = null;
+            Entry<K,V> right = null;
+            int size = 1;
+            Entry<K,V> parent;
+            boolean color = BLACK;
+
+            Entry(K key, V value, Entry<K,V> parent) {
+                this.key = key;
+                this.value = value;
+                this.parent = parent;
+            }
+
+
+            public int getSize() {
+                return size;
+            }
+
+
+            public void setSize(int size) {
+                this.size = size;
+            }
+
+            public K getKey() {
+                return key;
+            }
+
+            public V getValue() {
+                return value;
+            }
+
+            public V setValue(V value) {
+                V oldValue = this.value;
+                this.value = value;
+                return oldValue;
+            }
+
+            public boolean equals(Object o) {
+                if (!(o instanceof Entry))
+                    return false;
+                Entry<?,?> e = (Entry<?,?>)o;
+
+                return valEquals(key,e.getKey()) && valEquals(value,e.getValue());
+            }
+
+            public int hashCode() {
+                int keyHash = (key==null ? 0 : key.hashCode());
+                int valueHash = (value==null ? 0 : value.hashCode());
+                return keyHash ^ valueHash;
+            }
+
+            public String toString() {
+                return key + "=" + value;
+            }
+        }
+
         private Entry<K,V> root = null;
         private transient int size = 0;
         private transient int modCount = 0;
@@ -160,67 +221,6 @@
 
         final boolean valEquals(Object o1, Object o2) {
             return (o1==null ? o2==null : o1.equals(o2));
-        }
-
-        private static final boolean RED   = false;
-        private static final boolean BLACK = true;
-
-        final class Entry<K,V>  {
-            K key;
-            V value;
-            Entry<K,V> left = null;
-            Entry<K,V> right = null;
-            int size = 1;
-            Entry<K,V> parent;
-            boolean color = BLACK;
-
-            Entry(K key, V value, Entry<K,V> parent) {
-                this.key = key;
-                this.value = value;
-                this.parent = parent;
-            }
-
-
-            public int getSize() {
-                return size;
-            }
-
-
-            public void setSize(int size) {
-                this.size = size;
-            }
-
-            public K getKey() {
-                return key;
-            }
-
-            public V getValue() {
-                return value;
-            }
-
-            public V setValue(V value) {
-                V oldValue = this.value;
-                this.value = value;
-                return oldValue;
-            }
-
-            public boolean equals(Object o) {
-                if (!(o instanceof Entry))
-                    return false;
-                Entry<?,?> e = (Entry<?,?>)o;
-
-                return valEquals(key,e.getKey()) && valEquals(value,e.getValue());
-            }
-
-            public int hashCode() {
-                int keyHash = (key==null ? 0 : key.hashCode());
-                int valueHash = (value==null ? 0 : value.hashCode());
-                return keyHash ^ valueHash;
-            }
-
-            public String toString() {
-                return key + "=" + value;
-            }
         }
 
         final Entry<K,V> getFirstEntry() {
